@@ -32,4 +32,5 @@ I've worked with C on Linux.
 I've worked with C on Embedded Systems.  
 I've worked with Linux on Embedded Systems.  
 I have yet to work with C, on Linux, on Embedded Systems.  
+And I found that hardware access is in kernel-space, not user-space.  
 And boy howdy are they -entirely- different beasts.
