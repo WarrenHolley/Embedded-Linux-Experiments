@@ -1,0 +1,38 @@
+/dts-v1/;
+/plugin/;
+
+// Still honestly grasping at straws at this nonsense.
+// This is a truncated & edited copy of the RPI's Device Tree Driver/Overlay from
+//  https://github.com/raspberrypi/linux/blob/rpi-6.18.y/arch/arm/boot/dts/overlays/pwm-gpio-overlay.dts
+// Need to figure out how to work with this nonsense.
+
+
+/ {
+  compatible = "wgh,pwm_experiment";
+  
+  fragment@0 {
+    target-path = "/";   /* Adds to the root of the device tree */
+    __overlay__ {
+      pwm_gpio_pins: pwm_gpio_pins@4 {
+        status = "okay";
+        
+        brcm,pins     = <4>; /* gpio 4 */
+        brcm,function = <1>; /* output */
+        brcm,pull     = <0>; /* pull-none */
+      };
+    };
+  };
+  
+  fragment@1 {
+    target-path = "/";
+    __overlay__ {
+      pwm_gpio: pwm_gpio@4 {
+          compatible = "pwm-gpio";
+          pinctrl-names = "default";
+          pinctrl-0 = <&pwm_gpio_pins>;
+          gpios = <&gpio 4 0>;
+      };
+    };
+  };
+  
+};
