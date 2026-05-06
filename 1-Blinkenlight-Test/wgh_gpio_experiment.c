@@ -3,7 +3,7 @@
 
 #include <linux/mod_devicetable.h>
 #include <linux/platform_device.h>
-#include <linux/gpio/consumer.h>
+#include <linux/gpio/consumer.h>   //GPIO Access.
 #include <linux/miscdevice.h>
 
 // Set up the Kernel Module Data.
@@ -85,12 +85,13 @@ static int dev_probe(struct platform_device *pdev)
     return -ENOMEM;
   }
 
-  // Get the GPIO Descriptor for the LED.
+  // Get the GPIO Descriptor for the LED, setting it to output mode, in a low state. 
+  // (FINALLY. This could have been done by setting one bit in a baremental embedded system.)
   device_struct->led = gpiod_get( dev, "led", GPIOD_OUT_LOW );
   // Check for error.
   if ( IS_ERR(device_struct->led) ) {
     dev_err(dev, "Could not read in led-gpio property!\n");
-    return -1; // Doesn't look like need to delete bindings for the devm_kzalloc, as will fall out of scope? (WGH:Research)
+    return -1; // Doesn't look like need to delete bindings for the devm_kzalloc, as it's not set? (WGH:Research)
   }
 
   //Manage the internal miscdevice struct.
