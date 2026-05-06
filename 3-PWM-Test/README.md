@@ -3,8 +3,8 @@ A minimalist kernel-module (not driver) test to try to get PWM working.
 Experimenting with getting PWM working on the Device Tree has so far been for naught.  
 
 ### Install & Run:
-$> make
-$> sudo insmod wgh_pwm_module.ko
+$> make  
+$> sudo insmod wgh_pwm_module.ko  
 
 ### Hardware Setup:
 Hook up LEDs to Pins 32+33, PWM_0 and PWM_1 respectively.  
