@@ -1,0 +1,20 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+  fragment@0 {
+    target-path = "/";
+    
+    __overlay__ {
+      wgh_adc_test {
+
+        compatible = "wgh,adc_test";
+        
+        status = "okay";
+        
+        pwm-gpio = <&gpio 13 0>;
+        adc-gpio = <&gpio  _ 0>;  /* Yeah, this was a false start. RPi's dont have onboard ADC. */
+      };
+    };
+  };
+};
