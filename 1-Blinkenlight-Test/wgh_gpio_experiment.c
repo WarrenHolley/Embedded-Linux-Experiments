@@ -102,7 +102,7 @@ static int dev_probe(struct platform_device *pdev)
   sprintf(name, "wgh_blinkenlight_%d", device_count++); 
   // Should take only 19 B w/ terminator, so can instantiate 10^13 objects before overflow... Pretty sure Linux'll explode before then.
   device_struct->mdev.name = name; // Should be "wgh_blinkenlight_0"
-s
+
   // Register the new miscellaneos device. Creates the device file. (WGH:Research)
   int status = misc_register(&device_struct->mdev);
   // Check for failure. (Nonzero)
@@ -120,7 +120,7 @@ s
   return 0; //Return Success
 }
 
-static void my_dev_remove(struct platform_device *pdev)
+static void dev_remove(struct platform_device *pdev)
 {
   //From the Platform Device Driver Data struct, pull out the device struct.
   struct my_dev_data *priv = platform_get_drvdata(pdev);
