@@ -6,33 +6,38 @@
 //  https://github.com/raspberrypi/linux/blob/rpi-6.18.y/arch/arm/boot/dts/overlays/pwm-gpio-overlay.dts
 // Need to figure out how to work with this nonsense.
 
+//Name:   pwm
+//Info:   Configures a single PWM channel
+//        Legal pin,function combinations for each channel:
+//          PWM0: 12,4(Alt0) 18,2(Alt5) 40,4(Alt0)            52,5(Alt1)
+//          PWM1: 13,4(Alt0) 19,2(Alt5) 41,4(Alt0) 45,4(Alt0) 53,5(Alt1)
+//        N.B.:
+//          1) Pin 18 is the only one available on all platforms, and
+//             it is the one used by the I2S audio interface.
+//             Pins 12 and 13 might be better choices on an A+, B+ or Pi2.
+//          2) The onboard analogue audio output uses both PWM channels.
+//          3) So be careful mixing audio and PWM.
+//          4) Currently the clock must have been enabled and configured
+//             by other means.
+//Load:   dtoverlay=pwm,<param>=<val>
+//Params: pin                     Output pin (default 18) - see table
+//        func                    Pin function (default 2 = Alt5) - see above
+//        clock                   PWM clock frequency (informational)
+
+
 
 / {
-  compatible = "wgh,pwm_experiment";
-  
   fragment@0 {
     target-path = "/";   /* Adds to the root of the device tree */
+    
     __overlay__ {
-      pwm_gpio_pins: pwm_gpio_pins@4 {
-        status = "okay";
+      wgh_gpio_pwm { /* Research: Addresses & labels */
+
+        compatible = "wgh,pwm_experiment";
         
-        brcm,pins     = <4>; /* gpio 4 */
-        brcm,function = <1>; /* output */
-        brcm,pull     = <0>; /* pull-none */
+        status = "okay";
+        pwm-gpio = <&pwm 18 2>; // Pin 18, 'Alt Mode 5'
       };
     };
   };
-  
-  fragment@1 {
-    target-path = "/";
-    __overlay__ {
-      pwm_gpio: pwm_gpio@4 {
-          compatible = "pwm-gpio";
-          pinctrl-names = "default";
-          pinctrl-0 = <&pwm_gpio_pins>;
-          gpios = <&gpio 4 0>;
-      };
-    };
-  };
-  
 };
