@@ -18,11 +18,11 @@ $> sudo bash wgh_blinkenlight_setup.sh --uninstall
 Uninstalls the firmware module, unloads the device overlay.
 
 ### Hardware Setup:
-Pin 40 (GPIO 21) - Positive signal - 3.3V  
+Pin 40 (GPIO 21) - Positive signal - 5V
 Pin 39 (Gnd) - Ground  
 Resistor - 100 Ohm  
 Red LED - ~1.8 FVD  
-(Est 15mA current)  
+(Est 32mA current)  
 
 ### Run:
 $> sudo bash wgh_blinkenlight_setup.sh --install  
